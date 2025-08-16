@@ -1,0 +1,319 @@
+[gd_scene load_steps=23 format=3 uid="uid://dm2rel6cgvfwv"]
+
+[ext_resource type="Script" uid="uid://si38pcrhe850" path="res://Scripts/monster/monster.gd" id="1_mrqeg"]
+[ext_resource type="Texture2D" uid="uid://cmmo4y7pjkjor" path="res://Art/Character/Enemy/Knight/Soldier.png" id="2_mak2h"]
+[ext_resource type="Script" uid="uid://bjv1jeys0wqgg" path="res://Scripts/extendables/hitbox.gd" id="2_v4wv7"]
+[ext_resource type="Script" uid="uid://crkf2vlfo4a04" path="res://Scripts/extendables/health.gd" id="4_col0u"]
+[ext_resource type="PackedScene" uid="uid://c18522k280og1" path="res://tscn/UI/HP bar/hpbar.tscn" id="5_mak2h"]
+[ext_resource type="Script" uid="uid://dcb5cmaa8ju5d" path="res://Scripts/monster/monster_animation.gd" id="6_kib7l"]
+[ext_resource type="Script" uid="uid://dfenop2klq68" path="res://Scripts/state/monster_state_machine.gd" id="7_kib7l"]
+[ext_resource type="Script" uid="uid://c83sjclc1sfwx" path="res://Scripts/state/enemy state/idle.gd" id="8_akcy7"]
+[ext_resource type="Script" uid="uid://niyt4j1nksp3" path="res://Scripts/state/enemy state/chase.gd" id="9_wq6hg"]
+[ext_resource type="Script" uid="uid://d1vuobtu303u7" path="res://tscn/stun.gd" id="10_a2b7y"]
+[ext_resource type="Script" uid="uid://j85pxuxblc12" path="res://Scripts/state/enemy state/attack.gd" id="11_a2b7y"]
+[ext_resource type="Script" uid="uid://07g78ayrit7i" path="res://Scripts/state/enemy state/death.gd" id="12_y3pn2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4wv7"]
+radius = 4.0
+height = 20.0
+
+[sub_resource type="Animation" id="Animation_wq6hg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../attack/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../KnightBody:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Monster_HurtboxArea/Hurtbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_akcy7"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../attack/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.466667, 0.666667, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, false, true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../KnightBody:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 2), Vector2i(5, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_y3pn2"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../KnightBody:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 6), Vector2i(4, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 12), Vector2(0, 12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5708, 1.5708]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Monster_HurtboxArea/Hurtbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+
+[sub_resource type="Animation" id="Animation_a2b7y"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../KnightBody:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.608283),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 5), Vector2i(3, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_6gqlx"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../KnightBody:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 0), Vector2i(5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kib7l"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../KnightBody:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 1), Vector2i(7, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a2b7y"]
+_data = {
+&"RESET": SubResource("Animation_wq6hg"),
+&"attack": SubResource("Animation_akcy7"),
+&"death": SubResource("Animation_y3pn2"),
+&"hurt": SubResource("Animation_a2b7y"),
+&"idle": SubResource("Animation_6gqlx"),
+&"walk": SubResource("Animation_kib7l")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y3pn2"]
+radius = 23.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ga5te"]
+size = Vector2(28.3333, 40.5833)
+
+[node name="Monster" type="CharacterBody2D" groups=["Monster"]]
+z_index = 1
+scale = Vector2(3, 3)
+collision_layer = 4
+collision_mask = 196
+script = ExtResource("1_mrqeg")
+detection_radius = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Monster"]]
+position = Vector2(0, 12)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_v4wv7")
+disabled = true
+
+[node name="KnightBody" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_mak2h")
+hframes = 9
+vframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../KnightBody")
+libraries = {
+&"": SubResource("AnimationLibrary_a2b7y")
+}
+autoplay = "idle"
+
+[node name="attack" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack"]
+shape = SubResource("CircleShape2D_y3pn2")
+disabled = true
+
+[node name="Monster_HurtboxArea" type="Area2D" parent="." groups=["Monster"]]
+collision_layer = 128
+script = ExtResource("2_v4wv7")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Monster_HurtboxArea" groups=["Monster"]]
+position = Vector2(-0.333333, -3.375)
+shape = SubResource("RectangleShape2D_ga5te")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
+script = ExtResource("4_col0u")
+hitbox = NodePath("../Monster_HurtboxArea")
+
+[node name="Monster_Animation" type="Node" parent="." node_paths=PackedStringArray("anim", "sprite")]
+script = ExtResource("6_kib7l")
+anim = NodePath("../AnimationPlayer")
+sprite = NodePath("../KnightBody")
+
+[node name="Hpbar" parent="." node_paths=PackedStringArray("HPnode") instance=ExtResource("5_mak2h")]
+offset_left = -25.0
+offset_top = -19.0
+offset_right = 480.0
+offset_bottom = 4.0
+scale = Vector2(0.1, 0.1)
+HPnode = NodePath("../Health")
+
+[node name="MonsterStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_kib7l")
+initial_state = NodePath("Chase")
+
+[node name="Idle" type="Node" parent="MonsterStateMachine"]
+script = ExtResource("8_akcy7")
+metadata/_custom_type_script = "uid://cxqn24exvp8cj"
+
+[node name="Chase" type="Node" parent="MonsterStateMachine"]
+script = ExtResource("9_wq6hg")
+metadata/_custom_type_script = "uid://cxqn24exvp8cj"
+
+[node name="Stun" type="Node" parent="MonsterStateMachine"]
+script = ExtResource("10_a2b7y")
+stun_time = 1.0
+metadata/_custom_type_script = "uid://cxqn24exvp8cj"
+
+[node name="Attack" type="Node" parent="MonsterStateMachine"]
+script = ExtResource("11_a2b7y")
+metadata/_custom_type_script = "uid://cxqn24exvp8cj"
+
+[node name="Death" type="Node" parent="MonsterStateMachine"]
+script = ExtResource("12_y3pn2")
+metadata/_custom_type_script = "uid://cxqn24exvp8cj"
+
+[connection signal="area_entered" from="attack" to="MonsterStateMachine/Attack" method="attack_hit"]
+[connection signal="damaged" from="Monster_HurtboxArea" to="." method="on_damaged"]
+[connection signal="damaged" from="Monster_HurtboxArea" to="Health" method="on_damaged"]

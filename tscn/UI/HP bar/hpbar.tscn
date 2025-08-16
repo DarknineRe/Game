@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://c18522k280og1"]
+
+[ext_resource type="Script" uid="uid://cxsxwmnpd1f4" path="res://tscn/UI/HP bar/hpbar.gd" id="1_dkruw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6m11"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mw65r"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hncw0"]
+bg_color = Color(0.964706, 0.964706, 0.964706, 1)
+
+[node name="Hpbar" type="ProgressBar"]
+z_index = 1
+anchors_preset = -1
+anchor_left = 0.003
+anchor_right = 0.003
+offset_left = -4.635
+offset_right = 500.365
+offset_bottom = 23.0
+theme_override_styles/background = SubResource("StyleBoxFlat_p6m11")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mw65r")
+value = 70.0
+show_percentage = false
+script = ExtResource("1_dkruw")
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 505.0
+offset_bottom = 23.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hncw0")
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://uxuo66ysec31"]
+
+[ext_resource type="Texture2D" uid="uid://beov0a50gxd5d" path="res://Art/effect/spawn_mark.png" id="1_0jtx6"]
+
+[node name="spawn_mark" type="Sprite2D"]
+scale = Vector2(5, 5)
+texture = ExtResource("1_0jtx6")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj3qwyjxcjom"]
+
+[ext_resource type="Script" uid="uid://bjepiwx77iyfv" path="res://Scripts/bullet type/normal bullet/normal_bullet_type.gd" id="1_xtfx2"]
+[ext_resource type="Texture2D" uid="uid://bnjm2tdy0sqx4" path="res://Art/weapon/bullet.png" id="2_3s5y0"]
+[ext_resource type="Script" uid="uid://bv1oeapcr5rb1" path="res://Scripts/extendables/hurtbox.gd" id="3_m8ele"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ari5w"]
+atlas = ExtResource("2_3s5y0")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ari5w"]
+radius = 16.0312
+
+[node name="NormalBullet" type="CharacterBody2D"]
+z_index = 1
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("1_xtfx2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ari5w")
+region_enabled = true
+region_rect = Rect2(446.424, 226.909, 34.3854, 23.504)
+
+[node name="Floor Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ari5w")
+
+[node name="BulletHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("3_m8ele")
+metadata/_custom_type_script = "uid://bv1oeapcr5rb1"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BulletHitbox"]
+polygon = PackedVector2Array(-14, 0, -12, 0, -13, 1, -11, 1, -2, 4, 6, -2, -5, -7, -2, -9, 5, -9, 16, 0, 10, 10, -4, 10, -14, 2)
+
+[connection signal="hit_enemy" from="BulletHitbox" to="." method="on_enemy_hit"]

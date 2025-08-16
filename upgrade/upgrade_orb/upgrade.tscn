@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqv7oss5g7pvb"]
+
+[ext_resource type="Script" uid="uid://b0eqmdeie16u8" path="res://upgrade/upgrade.gd" id="1_qcylm"]
+[ext_resource type="Script" uid="uid://iaj127mpv0x7" path="res://upgrade/bullet_upgrade.gd" id="2_dt60i"]
+
+[sub_resource type="Resource" id="Resource_5htlc"]
+script = ExtResource("2_dt60i")
+metadata/_custom_type_script = "uid://iaj127mpv0x7"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5htlc"]
+radius = 9.0
+
+[sub_resource type="Curve" id="Curve_qcylm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="upgrade" type="Area2D" node_paths=PackedStringArray("sprite")]
+scale = Vector2(5, 5)
+script = ExtResource("1_qcylm")
+sprite = NodePath("UpgradeSprite")
+bullet_upgrade = SubResource("Resource_5htlc")
+needs_update = true
+
+[node name="UpgradeSprite" type="Sprite2D" parent="."]
+z_index = 1
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5htlc")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 50
+preprocess = 0.2
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 0.0
+scale_amount_max = 6.05
+scale_amount_curve = SubResource("Curve_qcylm")

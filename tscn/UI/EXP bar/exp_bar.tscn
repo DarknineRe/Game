@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl5cwid2efhm5"]
+
+[ext_resource type="Script" uid="uid://nlo2m2xf1xso" path="res://tscn/UI/EXP bar/exp_bar.gd" id="1_ia5fa"]
+
+[node name="ExpBar" type="ProgressBar"]
+z_index = 1
+offset_right = 734.0
+offset_bottom = 27.0
+script = ExtResource("1_ia5fa")

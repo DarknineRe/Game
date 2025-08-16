@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BulletUpgradeSpeed" load_steps=4 format=3 uid="uid://dtdn0xlpnm7gs"]
+
+[ext_resource type="Script" uid="uid://15yl5r2vtvu1" path="res://upgrade/bullet_upgrade_speed.gd" id="1_786sc"]
+[ext_resource type="Texture2D" uid="uid://btmmd5aly1wie" path="res://Art/weapon/upgrade.png" id="2_nx32p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_786sc"]
+atlas = ExtResource("2_nx32p")
+region = Rect2(80, 1072, 16, 16)
+
+[resource]
+script = ExtResource("1_786sc")
+speed_add = 250.0
+speed_mult = 1.1
+texture = SubResource("AtlasTexture_786sc")
+metadata/_custom_type_script = "uid://15yl5r2vtvu1"

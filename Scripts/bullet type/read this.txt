@@ -1,0 +1,11 @@
+REWORKING A BULLET
+
+> made a gun.gd
+> stat like bullet damage and speed will be in gun
+> player will call gun to shoot bullet instead of spawning bullets
+> coding rn, will make gun resource (like bad pistol) later
+
+> rn trying to bullet type 
+	> normal bullet
+	> laser bullet
+	> bomb

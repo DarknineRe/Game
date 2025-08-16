@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Bullet" load_steps=4 format=3 uid="uid://dxvqba5dj5goh"]
+
+[ext_resource type="Script" uid="uid://uyq7wtxef6ni" path="res://upgrade/bullet_upgrade_damage.gd" id="1_ql0fc"]
+[ext_resource type="Texture2D" uid="uid://btmmd5aly1wie" path="res://Art/weapon/upgrade.png" id="2_tr84w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68dv5"]
+atlas = ExtResource("2_tr84w")
+region = Rect2(96, 720, 16, 16)
+
+[resource]
+script = ExtResource("1_ql0fc")
+damage_mult = 3.0
+damage_add = 15.0
+texture = SubResource("AtlasTexture_68dv5")
+metadata/_custom_type_script = "uid://uyq7wtxef6ni"
